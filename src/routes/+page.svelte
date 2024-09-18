@@ -1,59 +1,73 @@
 <script>
-	import Counter from './Counter.svelte';
-	import welcome from '$lib/images/svelte-welcome.webp';
-	import welcome_fallback from '$lib/images/svelte-welcome.png';
+    import { screens } from "$lib/Screen.data";
+    import ScreenDecision from "$lib/ScreenDecision.svelte";
+    import ScreenResult from "$lib/ScreenResult.svelte";
+    import ScreenStart from "$lib/ScreenStart.svelte";
+    import { fly } from 'svelte/transition';
+    import '../app.css';
+
+    /**
+     * @type {number}
+     */
+    let startingScreen = 0;
+
+    $: screen = screens[startingScreen] || null;
+
+    /**
+     * @param {CustomEvent<number>} event
+     */
+    function handleNext(event) {
+        startingScreen = event.detail;
+    }
 </script>
 
-<svelte:head>
-	<title>Home</title>
-	<meta name="description" content="Svelte demo app" />
-</svelte:head>
+<div class="wrap">
+<!-- Wrap the whole screen transition with {#key} to force full re-render when the screen changes -->
+{#key startingScreen}
+    <div in:fly={{ y: 300, duration: 500 }} out:fly={{ y: -300, duration: 500 }} class="screen">
+        {#if screen}
+            {@const text = screen.text}
+            {@const type = screen.type}
 
-<section>
-	<h1>
-		<span class="welcome">
-			<picture>
-				<source srcset={welcome} type="image/webp" />
-				<img src={welcome_fallback} alt="Welcome" />
-			</picture>
-		</span>
-
-		to your new<br />SvelteKit app
-	</h1>
-
-	<h2>
-		try editing <strong>src/routes/+page.svelte</strong>
-	</h2>
-
-	<Counter />
-</section>
+            <!-- Render the appropriate component based on the screen type -->
+            {#if type === 'decision'}
+                {@const options = screen.options}
+                <ScreenDecision {text} {options} on:next={handleNext} />
+            
+            {:else if type === 'end'}
+                <ScreenResult {text} />
+            
+            {:else if type === 'start'}
+                {@const next = screen.next}
+                <ScreenStart {text} {next} on:next={handleNext} />
+            {/if}
+        {/if}
+    </div>
+{/key}
+</div>
 
 <style>
-	section {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		flex: 0.6;
-	}
-
-	h1 {
-		width: 100%;
-	}
-
-	.welcome {
-		display: block;
-		position: relative;
-		width: 100%;
-		height: 0;
-		padding: 0 0 calc(100% * 495 / 2048) 0;
-	}
-
-	.welcome img {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		display: block;
-	}
+    .wrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        width: 100vw;
+        box-sizing: border-box;
+        overflow: hidden;
+        position: relative;
+    }
+    .screen {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        padding: 2rem;
+        align-items: center;
+        justify-content: center;
+        position: absolute ;
+        height: 100%;
+        width: 100%;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
 </style>
