@@ -35,7 +35,9 @@
                 <ScreenDecision {text} {options} on:next={handleNext} />
             
             {:else if type === 'end'}
-                <ScreenResult {text} />
+                {@const color = screen.color}
+                {@const description = screen.description}
+                <ScreenResult {text} {color} {description} />
             
             {:else if type === 'start'}
                 {@const next = screen.next}

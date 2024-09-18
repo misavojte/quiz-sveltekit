@@ -16,6 +16,8 @@
  * @typedef {Object} EndScreen
  * @property {'end'} type - The type of the screen (end).
  * @property {string} text - The text to display as the final result.
+ * @property {string} color - The color of the heart emoji.
+ * @property {string} description - The description of the result.
  */
 
 /**
@@ -55,11 +57,15 @@ export const screens = {
     },
     211: {
       type: 'end',
-      text: 'Budeš super v Human Resources!'
+      text: 'Human Resources',
+      color: '#d6509e',
+        description: 'Vhodné pro lidi, které zajímá community management, starost o členy a teambuildingování.'
     },
     212: {
       type: 'end',
-      text: 'Budeš super v Partnerships!'
+      text: 'Partnerships',
+      color: '#ff5757',
+        description: 'Vhodné pro lidi, kteří chtějí řešit navazování spoluprací a získávání partnerů pro spolek a jeho aktivity.'
     },
     3: {
       type: 'decision',
@@ -79,11 +85,15 @@ export const screens = {
     },
     311: {
         type: 'end',
-        text: 'Budeš super v University Affairs!'
+        text: 'University Affairs',
+        color: '#5ce1e6',
+        description: "Vhodná pro ty, kteří chtějí řešit univerzitní spolupráci a jednat s katedrami, děkanátem a rektorátem."
     },
     312: {
         type: 'end',
-        text: 'Budeš super ve Financích!'
+        text: 'Finance',
+        description: "Vhodná pro lidi, které zajímají granty, fundraising a vnitřní chod spolku.",
+        color: '#cb6ce6'
     },
     32: {
         type: 'decision',
@@ -95,11 +105,15 @@ export const screens = {
     },
     321: {
         type: 'end',
-        text: 'Budeš super v Social Media!'
+        text: 'Social Media',
+        description: "Vhodná pro lidi, které zajímá tvorba pro sociální sítě, grafika, content marketing, natáčení, focení apod.",
+        color: '#38b6ff'
     },
     322: {
         type: 'end',
-        text: 'Budeš super v Events & PR!'
+        text: 'Events Management',
+        description: "Vhodná pro lidi které baví pomáhat organizovat a vymýšlet spolkové akce.",
+        color: '#7ed957'
     },
     22: {
         type: 'decision',

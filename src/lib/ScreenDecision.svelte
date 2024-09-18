@@ -2,6 +2,7 @@
 	import Button from "./Button.svelte";
     import Screen from "./Screen.svelte";
     import { createEventDispatcher } from "svelte";
+	import ScreenHeading from "./ScreenHeading.svelte";
     /**
      * @type {string}
      */
@@ -15,7 +16,8 @@
     const dispatch = createEventDispatcher();
 </script>
 
-<Screen {text}>
+<Screen>
+    <ScreenHeading {text} slot="heading" />
     <div slot="options" class="options">
         {#each options as option}
             <Button on:click={() => dispatch("next", option.next)}>

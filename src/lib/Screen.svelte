@@ -1,12 +1,5 @@
-<script>
-    /**
-     * @type {string}
-     */
-    export let text;
-</script>
-
 <main>
-    <h1>{text}</h1>
+    <slot name="heading" />
     <slot name="options" />
 </main>
 
@@ -21,11 +14,5 @@
         height: 100%;
         width: 100%;
         box-sizing: border-box;
-    }
-    h1 {
-        font-size: 2rem;
-        text-align: center;
-        color: var(--text-color);
-        margin: 0;
     }
 </style>
